@@ -1,0 +1,94 @@
+                    ## HOW TO SSH INTO PRIVATE INSTANCES ##
+#START SSH AGENT ON YOUR LOCAL MACHINE, ENSURE AGENT IS RUNNING,  ADD IDENTITY 
+ssh-agent -s
+eval $(ssh-agent -s)
+ssh-add bastionKP.pem
+ssh-add -L bastionKP.pem // CHECK FILE
+# LOG INTO PUBLIC INSTANCE
+ssh -A ubuntu@publicIP  // Agent Forwarding will automatically use your local key for authentication.
+# LOG INTO PRIVATE INSTANCE 
+ssh ubuntu@privateIP
+
+#SSH INTO PUBLIC INSTANCE WITHOUT AGENT FORWARDING
+ssh -i bastionKP.pem ec2-user@publicIP
+
+## - SSH INTO INTO EC2 USING UBUNTU STEPS
+    # Create a safe folder in your WSL home
+        mkdir -p ~/.ssh
+    # Copy your key from the Windows path
+        cp /mnt/c/Users/muhaz/Terraform/aws/templates/ec2based/bastionKP.pem ~/.ssh/
+    # Move into the folder
+        cd ~/.ssh
+    # Secure it
+        chmod 400 bastionKP.pem
+    # login
+        ssh -i ~/.ssh/bastionKP.pem ec2-user@54.224.3.47
+
+
+
+# check if DNS resolution is working as expected
+nslookup www.google.com 
+
+
+# Enable the SSL module and HTTPS site on instance
+sudo a2enmod ssl
+sudo a2ensite default-ssl
+sudo apt-get install openssl -y
+
+
+# Fetch index.html from S3 and serve it
+sudo aws s3 cp s3://mfejzic37/host/index.html /var/www/html/
+
+
+# Install web server software (e.g., Apache)
+sudo apt update -y
+sudo apt install -y apache2
+#Install aws cli
+sudo apt install awscli
+
+
+#CHECK STATUS OF APACHE
+sudo systemctl status  apache2
+
+
+# using nginx and python
+    - remove a folder  
+        -> rm /home/ec2-user/app.py
+    - find a folder
+        -> sudo find / -name "app.py" 2>/dev/null
+
+
+# nginx commands
+    - systemctl status nginx
+    - sudo systemctl start nginx
+    - sudo systemctl enable nginx
+
+# reload systemd
+    - sudo systemctl daemon-reexec
+    - sudo systemctl daemon-reload
+
+# identify whats using port 5000
+    - sudo netstat -tulnp | grep 5000
+    - sudo lsof -i :5000
+
+
+
+should work on first try, if not change the skurty groups and apply these commands
+-   sudo systemctl daemon-reload
+-   sudo systemctl restart flask-app
+
+--- se if you can take snapshot from rds and reload previous data into new rds wihtout spenidnng too much moneyyyyy
+--- change ec2's to new ami yeah
+
+
+### us ethis command to connect to rds
+    -- /usr/bin/python3
+>>> import mysql.connector
+>>> import os
+>>> mysql.connector.connect(
+...     host=os.environ.get("DB_HOST"),
+...     port=int(os.environ.get("DB_PORT", 3306)),
+...     user=os.environ.get("DB_USER"),
+...     password=os.environ.get("DB_PASSWORD"),
+...     database=os.environ.get("DB_NAME")
+... )

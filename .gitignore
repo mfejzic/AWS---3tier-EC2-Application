@@ -1,0 +1,54 @@
+# =========================
+# Terraform
+# =========================
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfstate
+terraform.tfstate.backup
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl
+
+# Terraform variables (local secrets)
+terraform.tfvars
+*.tfvars
+*.tfvars.json
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+.env
+.pytest_cache/
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# OS / Editor
+# =========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# =========================
+# Build / temp files
+# =========================
+*.bak
+*.swp
+*.tmp

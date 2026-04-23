@@ -1,0 +1,24 @@
+#!/bin/bash
+# Create app folder if not exists
+mkdir -p /opt/app
+
+# Pull latest RDS info from SSM
+DB_HOST=$(aws ssm get-parameter --name "/app/db_host" --query "Parameter.Value" --output text)
+DB_USER=$(aws ssm get-parameter --name "/app/db_user" --query "Parameter.Value" --output text)
+DB_PASSWORD=$(aws ssm get-parameter --name "/app/db_password" --with-decryption --query "Parameter.Value" --output text)
+DB_NAME=$(aws ssm get-parameter --name "/app/db_name" --query "Parameter.Value" --output text)
+
+# Write .env for Flask
+cat <<EOT > /opt/app/.env
+DB_HOST=$DB_HOST
+DB_USER=$DB_USER
+DB_PASSWORD=$DB_PASSWORD
+DB_NAME=$DB_NAME
+EOT
+
+chmod 600 /opt/app/.env
+
+# Optional: start your Flask app via systemd if service exists
+systemctl daemon-reload
+systemctl enable flask-app
+systemctl start flask-app

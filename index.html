@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Message Board</title>
+</head>
+<body>
+  <h2>Enter a message</h2>
+
+  <form method="POST">
+    <input type="text" name="message" required />
+    <button type="submit">Submit</button>
+  </form>
+
+  <h3>Messages</h3>
+  <ul>
+    {% for message, created_at in messages %}
+      <li>
+        <strong>{{ created_at }}:</strong> {{ message }}
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
