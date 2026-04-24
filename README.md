@@ -49,10 +49,16 @@ https://www.fejzic37.com/links/ec2infra.html
 - Security Group-based access control (SSH/HTTP)  
 - Restricted inbound/outbound network rules  
 - No hardcoded secrets (Terraform variable separation)  
-- Isolated VPC architecture design  
-
+- Isolated VPC architecture design
 
 📊 Observability  
 - Basic system logging via EC2 instance logs  
 - Infrastructure visibility through Terraform outputs  
 - Optional CloudWatch integration-ready design  
+
+
+Architecture Diagram
+<img width="1331" height="920" alt="image" src="https://github.com/user-attachments/assets/5fed18b7-d44c-4475-8318-387506e3095c" />
+
+Build Order
+<img width="962" height="242" alt="image" src="https://github.com/user-attachments/assets/cea1e6d9-efba-47be-8a6a-3035d0986e77" />
